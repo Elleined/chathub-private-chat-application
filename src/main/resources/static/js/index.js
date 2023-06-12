@@ -5,9 +5,16 @@ var stompClient;
 $(document).ready(function() {
     connect();
 
-    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
-        var json = JSON.parse(responseMessage.body);
-        console.log("MESSAGE " + json);
+    $("#privateMessageForm").on("submit", function(event) {
+        const body = $("#body").val();
+
+        stompClient.send("/app/send-private-message",
+            {},
+            JSON.stringify({body: body})
+        );
+
+        body.val("");
+        event.preventDefault();
     });
 });
 
@@ -19,8 +26,16 @@ function connect() {
 
 function onConnected() {
     console.log("Web Socket Connected!!!");
+    connectToUser();
 }
 
 function onError() {
     console.log("Could not connect to WebSocket server. Please refresh this page to try again!");
+}
+
+function connectToUser() {
+   stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
+        var json = JSON.parse(responseMessage.body);
+        console.log("MESSAGE " + json.messageContent);
+   });
 }

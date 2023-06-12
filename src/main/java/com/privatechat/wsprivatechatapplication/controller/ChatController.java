@@ -2,6 +2,7 @@ package com.privatechat.wsprivatechatapplication.controller;
 
 import com.privatechat.wsprivatechatapplication.dto.Message;
 import com.privatechat.wsprivatechatapplication.dto.ResponseMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -11,6 +12,7 @@ import org.springframework.web.util.HtmlUtils;
 import java.security.Principal;
 
 @Controller
+@Slf4j
 public class ChatController {
 
     @MessageMapping("/send-private-message")
@@ -18,6 +20,7 @@ public class ChatController {
     public ResponseMessage sendPrivateMessage(@Payload Message message,
                                               Principal principal) {
         String responseMessage = String.format("Sending private message to user %s: %s", principal.getName(), HtmlUtils.htmlEscape(message.body()));
+        log.debug("Message content {}", responseMessage);
         return new ResponseMessage(responseMessage);
     }
 }
