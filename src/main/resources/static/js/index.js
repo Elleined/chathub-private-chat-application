@@ -6,14 +6,15 @@ $(document).ready(function() {
     connect();
 
     $("#privateMessageForm").on("submit", function(event) {
+        const privateMessageSection = $("#privateMessageSection");
         const body = $("#body").val();
+        const recipientId = $("#recipient").val();
 
-        stompClient.send("/app/send-private-message",
-            {},
-            JSON.stringify({body: body})
-        );
+        sendPrivateMessage(recipientId, body);
 
-        body.val("");
+        privateMessageSection.append("<li>" +  body + "</li>");
+        $("#body").val("");
+        $("#recipient").val("");
         event.preventDefault();
     });
 });
@@ -34,8 +35,26 @@ function onError() {
 }
 
 function connectToUser() {
+   const privateMessageSection = $("#privateMessageSection");
    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
         var json = JSON.parse(responseMessage.body);
-        console.log("MESSAGE " + json.messageContent);
+        privateMessageSection.append("<li>" +  json.messageContent + "</li>");
    });
+}
+
+function sendPrivateMessage(recipientId, body) {
+    $.ajax({
+        type: "POST",
+        url: "/send-private-message/" + recipientId,
+        contentType: "application/json",
+        data: JSON.stringify({
+            body: body
+        }),
+        success: function(responseMessage, response) {
+            console.log("Success " + responseMessage.messageContent);
+        },
+        error: function(xhr, status, error) {
+            alert("Error Occurred!" + xhr.responseText);
+        }
+    });
 }

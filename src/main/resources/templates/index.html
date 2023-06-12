@@ -9,10 +9,18 @@
 <body>
    <form id="privateMessageForm">
       <div class="form-outline">
+         <input type="text" id="recipient" class="form-control" />
+         <label class="form-label" for="recipient">Recipient id</label>
+      </div>
+      <div class="form-outline">
          <input type="text" id="body" class="form-control" />
-         <label class="form-label" for="body">Text input</label>
+         <label class="form-label" for="body">Message</label>
       </div>
       <button type="submit" class="btn btn-primary">Send Private Message</button>
    </form>
+
+   <ul id="privateMessageSection">
+
+   </ul>
 </body>
 </html>

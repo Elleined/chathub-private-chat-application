@@ -1,4 +1,4 @@
-package com.privatechat.wsprivatechatapplication;
+package com.privatechat.wsprivatechatapplication.config;
 
 import com.sun.security.auth.UserPrincipal;
 import lombok.extern.slf4j.Slf4j;
