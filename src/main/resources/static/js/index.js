@@ -4,6 +4,11 @@ var stompClient;
 
 $(document).ready(function() {
     connect();
+
+    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
+        var json = JSON.parse(responseMessage.body);
+        console.log("MESSAGE " + json);
+    });
 });
 
 function connect() {
