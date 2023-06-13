@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <title>Private Chat</title>
+   <div th:replace="~{fragments/links :: links-fragment}"></div>
+   <link rel="stylesheet" th:href="@{/css/main.css}" />
+   <script th:src="@{/js/index.js}"></script>
+</head>
+<body background="/img/background.jpg">
+   <div id="chat-page">
+      <div class="chat-container">
+         <div class="chat-header">
+            <h2>Private Chat</h2>
+         </div>
+         <div class="connecting">Connecting...</div>
+         <ul id="messageArea">
+
+         </ul>
+         <form id="privateMessageForm">
+            <div class="form-group">
+               <div class="input-group clearfix">
+                  <input type="text" id="recipient" placeholder="Recipient Id..."
+                         autocomplete="off" class="form-control" />
+                  <input type="text" id="body" placeholder="Type a message..."
+                         autocomplete="off" class="form-control" />
+                  <button type="submit" id="sendPrivateBtn" class="btn btn-success">Send</button>
+                  <button class="btn btn-success" id="sendPrivateBtnSpinner" type="button"  disabled>
+                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                     Sending...
+                  </button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+
+</body>
+</html>

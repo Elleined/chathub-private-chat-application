@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Private Chat</title>
+  <div th:replace="~{fragments/links :: links-fragment}"></div>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body background="/img/background.jpg">
+
+  <div id="username-page">
+    <div class="username-page-container">
+      <h1 class="title">Type your username</h1>
+      <form method="post" th:action="@{/login}" th:object="${userDTO}">
+        <div class="form-group">
+          <input type="text" id="name" placeholder="Username" th:field="*{username}"
+                 autocomplete="off" class="form-control" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="accent username-submit">Start
+            Chatting</button>
+        </div>
+        <span
+                class="validation-error d-block"
+                th:if="${usernameDoesNotExists}"
+                style="color: red"
+                th:text="${usernameErrorMsg}"></span>
+      </form>
+      <p>
+        Don't have an account yet? Click
+        <a th:href="@{/register}">
+          Here
+        </a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
