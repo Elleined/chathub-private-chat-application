@@ -41,7 +41,7 @@ public class LoginController {
             return "login";
         }
 
-        log.debug("User with username of {} login successfully!", userDTO.username());
+        log.debug("User with username of {} with UUID of {} login successfully!", userDTO.username(), userDTO.UUID());
         session.setAttribute("username", userDTO.username());
         return "redirect:/";
     }

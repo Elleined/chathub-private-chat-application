@@ -25,7 +25,6 @@ public class UserHandshakeHandler extends DefaultHandshakeHandler {
         // HttpSession session = ((ServletServerHttpRequest) request).getServletRequest().getSession();
         String username = (String) httpSession.getAttribute("username");
         UserDTO userDTO = userService.getByUsername(username);
-        log.debug("Current User {} with UUID of {}", userDTO.username(), userDTO.UUID());
         return new UserPrincipal(userDTO.UUID());
     }
 }

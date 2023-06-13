@@ -5,7 +5,7 @@
    <title>Private Chat</title>
    <div th:replace="~{fragments/links :: links-fragment}"></div>
    <link rel="stylesheet" th:href="@{/css/main.css}" />
-   <script th:src="@{/js/index.js}"></script>
+   <script th:src="@{/js/private-chat.js}"></script>
 </head>
 <body background="/img/background.jpg">
    <div id="chat-page">
@@ -20,10 +20,11 @@
          <form id="privateMessageForm">
             <div class="form-group">
                <div class="input-group clearfix">
+                  <input type="hidden" id="sender" name="sender" />
                   <input type="text" id="recipient" placeholder="Recipient Id..."
-                         autocomplete="off" class="form-control" />
+                         autocomplete="off" class="form-control" required />
                   <input type="text" id="body" placeholder="Type a message..."
-                         autocomplete="off" class="form-control" />
+                         autocomplete="off" class="form-control" required />
                   <button type="submit" id="sendPrivateBtn" class="btn btn-success">Send</button>
                   <button class="btn btn-success" id="sendPrivateBtnSpinner" type="button"  disabled>
                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

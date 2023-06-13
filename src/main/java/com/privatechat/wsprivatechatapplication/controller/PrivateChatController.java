@@ -34,6 +34,6 @@ public class PrivateChatController {
         if (body.isEmpty() || body.isBlank()) return ResponseEntity.badRequest().body("Please provide a message body!");
 
         wsService.sendPrivateMessage(recipientId, message);
-        return ResponseEntity.ok(new ResponseMessage(message.body()));
+        return ResponseEntity.ok(new ResponseMessage(message.sender(), message.body()));
     }
 }

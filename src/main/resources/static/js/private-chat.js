@@ -14,10 +14,7 @@ $(document).ready(function() {
     $("#privateMessageForm").on("submit", function(event) {
         event.preventDefault();
 
-        const body = $("#body").val();
-        const recipientId = $("#recipient").val();
-        sendPrivateMessage(recipientId, body);
-
+        sendPrivateMessage();
         $("#body").val("");
     });
 });
@@ -39,24 +36,28 @@ function onError() {
 }
 
 function connectToUser() {
-   const messageArea = $("#messageArea");
    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
         var json = JSON.parse(responseMessage.body);
-        showMessage("Denielle", json.messageContent);
+        showMessage(json.sender, json.messageContent);
    });
 }
 
-function sendPrivateMessage(recipientId, body) {
+function sendPrivateMessage() {
     if (recipientId.trim() === "") {
         alert("Please provide recipient id!!");
         return;
     }
+
+    const sender = $("#sender").val();
+    const body = $("#body").val();
+    const recipientId = $("#recipient").val();
 
     $.ajax({
         type: "POST",
         url: "/private-chat/send-private-message/" + recipientId,
         contentType: "application/json",
         data: JSON.stringify({
+            sender: sender,
             body: body
         }),
         beforeSend: function() {
@@ -69,7 +70,7 @@ function sendPrivateMessage(recipientId, body) {
         },
         success: function(responseMessage, response) {
             console.log("Private message sent successfully  " + responseMessage.messageContent);
-            showMessage("Denielle", responseMessage.messageContent);
+            showMessage(responseMessage.sender, responseMessage.messageContent);
         },
         error: function(xhr, status, error) {
             alert("Error Occurred! " + xhr.responseText);

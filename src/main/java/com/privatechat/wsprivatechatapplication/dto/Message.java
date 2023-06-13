@@ -1,4 +1,7 @@
 package com.privatechat.wsprivatechatapplication.dto;
 
-public record Message(String body) {
+public record Message(
+        String sender,
+        String body
+) {
 }

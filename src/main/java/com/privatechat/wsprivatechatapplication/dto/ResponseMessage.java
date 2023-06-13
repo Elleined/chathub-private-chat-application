@@ -1,3 +1,6 @@
 package com.privatechat.wsprivatechatapplication.dto;
 
-public record ResponseMessage(String messageContent) { }
+public record ResponseMessage(
+        String sender,
+        String messageContent
+) { }
