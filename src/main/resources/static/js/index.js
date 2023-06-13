@@ -50,6 +50,14 @@ function sendPrivateMessage(recipientId, body) {
         data: JSON.stringify({
             body: body
         }),
+        beforeSend: function() {
+            $("#sendPrivateMessageBtn").hide();
+            $("#sendPrivateMessageSpinner").show();
+        },
+        complete: function() {
+            $("#sendPrivateMessageBtn").show();
+            $("#sendPrivateMessageSpinner").hide();
+        },
         success: function(responseMessage, response) {
             console.log("Success " + responseMessage.messageContent);
         },

@@ -16,7 +16,11 @@
          <input type="text" id="body" class="form-control" />
          <label class="form-label" for="body">Message</label>
       </div>
-      <button type="submit" class="btn btn-primary">Send Private Message</button>
+      <button type="submit" class="btn btn-primary" id="sendPrivateMessageBtn">Send Private Message</button>
+       <button class="btn btn-primary d-none" type="button" id="sendPrivateMessageSpinner" disabled>
+           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+           <span class="visually-hidden">Loading...</span>
+       </button>
    </form>
 
    <ul id="privateMessageSection">

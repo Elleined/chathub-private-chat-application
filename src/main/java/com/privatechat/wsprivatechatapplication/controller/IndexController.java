@@ -21,8 +21,12 @@ public class IndexController {
     private final WSService wsService;
 
     @PostMapping("/send-private-message/{recipientId}")
-    public ResponseEntity<ResponseMessage> sendPrivateMessage(@PathVariable("recipientId") String recipientId,
-                                                              @RequestBody Message message) {
+    public ResponseEntity<?> sendPrivateMessage(@PathVariable("recipientId") String recipientId,
+                                                @RequestBody Message message) {
+        String body = message.body();
+        if (recipientId.isEmpty() || recipientId.isBlank()) return ResponseEntity.badRequest().body("Please provide recipient id!!");
+        if (body.isEmpty() || body.isBlank()) return ResponseEntity.badRequest().body("Please provide a message body!");
+
         wsService.sendPrivateMessage(recipientId, message);
         return ResponseEntity.ok(new ResponseMessage(message.body()));
     }
