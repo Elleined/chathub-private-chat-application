@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-@RequiredArgsConstructor
 public class ExceptionController {
 
     @ExceptionHandler(ResourceNotFoundException.class)

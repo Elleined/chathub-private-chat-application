@@ -13,7 +13,6 @@ $(document).ready(function() {
 
     $("#privateMessageForm").on("submit", function(event) {
         event.preventDefault();
-
         sendPrivateMessage();
         $("#body").val("");
     });
@@ -38,27 +37,28 @@ function onError() {
 function connectToUser() {
    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
         var json = JSON.parse(responseMessage.body);
-        showMessage(json.sender, json.messageContent);
+        showMessage(json);
    });
 }
 
 function sendPrivateMessage() {
-    if (recipientId.trim() === "") {
+    const sender = $("#sender").val();
+    const body = $("#body").val();
+    const recipientUUID = $("#recipientUUID").val();
+
+    if (recipientUUID.trim() === "") {
         alert("Please provide recipient id!!");
         return;
     }
 
-    const sender = $("#sender").val();
-    const body = $("#body").val();
-    const recipientId = $("#recipient").val();
-
     $.ajax({
         type: "POST",
-        url: "/private-chat/send-private-message/" + recipientId,
+        url: "/private-chat",
         contentType: "application/json",
         data: JSON.stringify({
             sender: sender,
-            body: body
+            body: body,
+            recipientUUID: recipientUUID
         }),
         beforeSend: function() {
             $("#sendPrivateBtn").hide();
@@ -70,7 +70,7 @@ function sendPrivateMessage() {
         },
         success: function(responseMessage, response) {
             console.log("Private message sent successfully  " + responseMessage.messageContent);
-            showMessage(responseMessage.sender, responseMessage.messageContent);
+            showMessage(responseMessage);
         },
         error: function(xhr, status, error) {
             alert("Error Occurred! " + xhr.responseText);
@@ -78,32 +78,24 @@ function sendPrivateMessage() {
     });
 }
 
-function showMessage(sender, body) {
+function showMessage(responseMessage) {
         const messageArea = $("#messageArea");
         const messageElement = $("<li>")
             .attr("class", "chat-message")
             .appendTo(messageArea);
 
-        const avatarElement = $("<i>")
-            .text(sender[0])
-            .css("background-color", getAvatarColor(sender))
-            .appendTo(messageElement);
+        const senderImage = $("<img>").attr({
+            "class": "rounded-circle shadow-4-strong",
+            "height": "50px",
+            "width": "50px",
+            "src": "/img/" + responseMessage.senderPicture
+        }).appendTo(messageElement);
 
         const usernameElement = $("<span>")
-            .text(sender)
+            .text(responseMessage.sender)
             .appendTo(messageElement);
 
         const textElement = $("<p>")
-            .text(body)
+            .text(responseMessage.messageContent)
             .appendTo(messageElement);
-}
-
-function getAvatarColor(messageSender) {
-    var hash = 0;
-    for (var i = 0; i < messageSender.length; i++) {
-        hash = 31 * hash + messageSender.charCodeAt(i);
-    }
-
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
 }

@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Private Chat</title>
+   <meta charset="UTF-8">
+   <title>Private Chat</title>
+   <div th:replace="~{fragments/links :: links-fragment}"></div>
 </head>
 <body>
-<p>INDex</p>
+   <span th:if="${users.isEmpty()}">No registered users yet</span>
+
+   <th:block th:each="user : ${users}">
+      <div class="card">
+         <div class="card-body">
+            <h5 class="card-title" th:text="${user.username}"></h5>
+            <p class="card-text" th:text="${user.description}"></p>
+            <a role="button"
+               id="sendPrivateMessageBtn"
+               th:href="@{/private-chat/{recipientId} (recipientId=${user.UUID}) }"
+               class="btn btn-primary">
+               <i class="fas fa-comment"></i>
+               Chat
+            </a>
+         </div>
+      </div>
+   </th:block>
 </body>
 </html>

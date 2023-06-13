@@ -20,8 +20,11 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "picture")
+    private String picture;
 
     @Column(name = "UUID", unique = true)
     private String UUID;

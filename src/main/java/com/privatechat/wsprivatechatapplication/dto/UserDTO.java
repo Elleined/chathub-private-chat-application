@@ -12,8 +12,12 @@ public record UserDTO(
     @NotBlank(message = "Username cannot be white space only")
     String username,
 
-    @NotEmpty(message = "Name should not be null")
-    @NotBlank(message = "Name cannot be white space only")
-    String name,
+    @NotEmpty(message = "Description should not be null")
+    @NotBlank(message = "Description cannot be white space only")
+    String description,
+
+    @NotEmpty(message = "Picture should not be null")
+    @NotBlank(message = "Picture cannot be white space only")
+    String picture,
     String UUID
 ) { }

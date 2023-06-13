@@ -12,7 +12,7 @@
         <h1 class="title">Register</h1>
         <form method="post" th:action="@{/register}" th:object="${userDTO}">
             <div class="form-group">
-                <input type="text" id="username" placeholder="Enter your username" th:field="*{username}"
+                <input type="text" id="username" placeholder="Enter your username..." th:field="*{username}"
                        autocomplete="off" class="form-control" />
                 <span
                         class="validation-error d-block"
@@ -27,14 +27,28 @@
                         th:text="${usernameErrorMsg}"></span>
             </div>
             <div class="form-group">
-                <input type="text" id="name" placeholder="Enter your name" th:field="*{name}"
-                       autocomplete="off" class="form-control" />
+                <textarea type="text"
+                          id="description"
+                          placeholder="Enter your short description about yourself..."
+                          th:field="*{description}"
+                          autocomplete="off" class="form-control">
+                </textarea>
                 <span
                         class="validation-error d-block"
-                        th:if="${#fields.hasErrors('name')}"
+                        th:if="${#fields.hasErrors('description')}"
                         style="color: red"
-                        th:error="*{name}"
-                        th:text="${#fields.errors('name')}"></span>
+                        th:error="*{description}"
+                        th:text="${#fields.errors('description')}"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" id="picture" placeholder="Enter your username..." th:field="*{picture}"
+                       autocomplete="off" class="form-control" />
+                <span
+                   class="validation-error d-block"
+                   th:if="${#fields.hasErrors('picture')}"
+                   style="color: red"
+                   th:error="*{picture}"
+                   th:text="${#fields.errors('picture')}"></span>
             </div>
             <div class="form-group">
                 <button type="submit" class="accent username-submit">Register</button>

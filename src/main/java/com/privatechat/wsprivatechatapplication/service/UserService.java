@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,13 +22,14 @@ public class UserService {
         String uuid = UUID.randomUUID().toString();
 
         User user = User.builder()
-                .name(userDTO.name())
                 .username(userDTO.username())
+                .description(userDTO.description())
                 .UUID(uuid)
+                .picture(userDTO.picture())
                 .build();
 
         userRepository.save(user);
-        log.debug("User saved successfully with id of {}", user.getId());
+        log.debug("User with username of {} saved successfully", user.getUsername());
         return user.getId();
     }
     public boolean isUsernameExists(String username) {
@@ -39,11 +41,25 @@ public class UserService {
         return this.convertToDTO(user);
     }
 
+    public UserDTO getByUUID(String UUID) {
+        User user = userRepository.fetchByUUID(UUID).orElseThrow(() -> new ResourceNotFoundException("User with UUID of " + UUID + " does not exists!"));
+        return this.convertToDTO(user);
+    }
+
+    public List<UserDTO> getAllExceptCurrentUser(int id) {
+        return userRepository.findAll()
+                .stream()
+                .filter(user -> user.getId() != id)
+                .map(this::convertToDTO)
+                .toList();
+    }
+
     public UserDTO convertToDTO(User user) {
         return UserDTO.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .description(user.getDescription())
                 .username(user.getUsername())
+                .picture(user.getPicture())
                 .UUID(user.getUUID())
                 .build();
     }
