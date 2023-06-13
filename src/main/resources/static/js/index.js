@@ -2,20 +2,23 @@
 
 var stompClient;
 
+const colors = [
+    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
+    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
+];
+
 $(document).ready(function() {
+    $("#sendPrivateBtnSpinner").hide();
     connect();
 
     $("#privateMessageForm").on("submit", function(event) {
-        const privateMessageSection = $("#privateMessageSection");
+        event.preventDefault();
+
         const body = $("#body").val();
         const recipientId = $("#recipient").val();
-
         sendPrivateMessage(recipientId, body);
 
-        privateMessageSection.append("<li>" +  body + "</li>");
         $("#body").val("");
-        $("#recipient").val("");
-        event.preventDefault();
     });
 });
 
@@ -28,6 +31,7 @@ function connect() {
 function onConnected() {
     console.log("Web Socket Connected!!!");
     connectToUser();
+    $(".connecting").text("Connected...");
 }
 
 function onError() {
@@ -35,14 +39,19 @@ function onError() {
 }
 
 function connectToUser() {
-   const privateMessageSection = $("#privateMessageSection");
+   const messageArea = $("#messageArea");
    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
         var json = JSON.parse(responseMessage.body);
-        privateMessageSection.append("<li>" +  json.messageContent + "</li>");
+        showMessage("Denielle", json.messageContent);
    });
 }
 
 function sendPrivateMessage(recipientId, body) {
+    if (recipientId.trim() === "") {
+        alert("Please provide recipient id!!");
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/send-private-message/" + recipientId,
@@ -51,18 +60,49 @@ function sendPrivateMessage(recipientId, body) {
             body: body
         }),
         beforeSend: function() {
-            $("#sendPrivateMessageBtn").hide();
-            $("#sendPrivateMessageSpinner").show();
+            $("#sendPrivateBtn").hide();
+            $("#sendPrivateBtnSpinner").show();
         },
         complete: function() {
-            $("#sendPrivateMessageBtn").show();
-            $("#sendPrivateMessageSpinner").hide();
+            $("#sendPrivateBtn").show();
+            $("#sendPrivateBtnSpinner").hide();
         },
         success: function(responseMessage, response) {
-            console.log("Success " + responseMessage.messageContent);
+            console.log("Private message sent successfully  " + responseMessage.messageContent);
+            showMessage("Denielle", responseMessage.messageContent);
         },
         error: function(xhr, status, error) {
-            alert("Error Occurred!" + xhr.responseText);
+            alert("Error Occurred! " + xhr.responseText);
         }
     });
+}
+
+function showMessage(sender, body) {
+        const messageArea = $("#messageArea");
+        const messageElement = $("<li>")
+            .attr("class", "chat-message")
+            .appendTo(messageArea);
+
+        const avatarElement = $("<i>")
+            .text(sender[0])
+            .css("background-color", getAvatarColor(sender))
+            .appendTo(messageElement);
+
+        const usernameElement = $("<span>")
+            .text(sender)
+            .appendTo(messageElement);
+
+        const textElement = $("<p>")
+            .text(body)
+            .appendTo(messageElement);
+}
+
+function getAvatarColor(messageSender) {
+    var hash = 0;
+    for (var i = 0; i < messageSender.length; i++) {
+        hash = 31 * hash + messageSender.charCodeAt(i);
+    }
+
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
 }

@@ -14,7 +14,8 @@ public class WSService {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public void sendPrivateMessage(String recipientId, Message message) {
+    public void sendPrivateMessage(String recipientId, Message message) throws InterruptedException {
+        Thread.sleep(1000);
         var responseMessage = new ResponseMessage(message.body());
         simpMessagingTemplate.convertAndSendToUser(recipientId, "/chat/private-message", responseMessage);
     }
