@@ -54,7 +54,7 @@ function sendPrivateMessage(recipientId, body) {
 
     $.ajax({
         type: "POST",
-        url: "/send-private-message/" + recipientId,
+        url: "/private-chat/send-private-message/" + recipientId,
         contentType: "application/json",
         data: JSON.stringify({
             body: body
