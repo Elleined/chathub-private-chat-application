@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +18,9 @@ public class UserService {
     private final UserRepository userRepository;
 
     public int save(UserDTO userDTO) {
-        String uuid = UUID.randomUUID().toString();
-
         User user = User.builder()
                 .username(userDTO.username())
                 .description(userDTO.description())
-                .UUID(uuid)
                 .picture(userDTO.picture())
                 .build();
 
@@ -41,8 +37,8 @@ public class UserService {
         return this.convertToDTO(user);
     }
 
-    public UserDTO getByUUID(String UUID) {
-        User user = userRepository.fetchByUUID(UUID).orElseThrow(() -> new ResourceNotFoundException("User with UUID of " + UUID + " does not exists!"));
+    public UserDTO getById(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id of " + id + " does not exists!"));
         return this.convertToDTO(user);
     }
 
@@ -60,7 +56,6 @@ public class UserService {
                 .description(user.getDescription())
                 .username(user.getUsername())
                 .picture(user.getPicture())
-                .UUID(user.getUUID())
                 .build();
     }
 }

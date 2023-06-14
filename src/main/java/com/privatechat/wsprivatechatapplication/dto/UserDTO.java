@@ -18,6 +18,5 @@ public record UserDTO(
 
     @NotEmpty(message = "Picture should not be null")
     @NotBlank(message = "Picture cannot be white space only")
-    String picture,
-    String UUID
+    String picture
 ) { }

@@ -25,7 +25,4 @@ public class User {
 
     @Column(name = "picture")
     private String picture;
-
-    @Column(name = "UUID", unique = true)
-    private String UUID;
 }

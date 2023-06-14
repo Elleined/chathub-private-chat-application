@@ -21,6 +21,6 @@ public class WSService {
 
         String picture = userService.getByUsername(message.sender()).picture();
         var responseMessage = new ResponseMessage(message.sender(), message.body(), picture);
-        simpMessagingTemplate.convertAndSendToUser(message.recipientUUID(), "/chat/private-message", responseMessage);
+        simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.recipientId()), "/chat/private-message", responseMessage);
     }
 }

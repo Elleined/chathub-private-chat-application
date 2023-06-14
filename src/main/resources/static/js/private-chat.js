@@ -44,9 +44,9 @@ function connectToUser() {
 function sendPrivateMessage() {
     const sender = $("#sender").val();
     const body = $("#body").val();
-    const recipientUUID = $("#recipientUUID").val();
+    const recipientId = $("#recipientId").val();
 
-    if (recipientUUID.trim() === "") {
+    if (recipientId.trim() === "") {
         alert("Please provide recipient id!!");
         return;
     }
@@ -58,7 +58,7 @@ function sendPrivateMessage() {
         data: JSON.stringify({
             sender: sender,
             body: body,
-            recipientUUID: recipientUUID
+            recipientId: recipientId
         }),
         beforeSend: function() {
             $("#sendPrivateBtn").hide();

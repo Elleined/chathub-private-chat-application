@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class UserHandshakeHandler extends DefaultHandshakeHandler {
 
     private final UserService userService;
@@ -25,6 +27,6 @@ public class UserHandshakeHandler extends DefaultHandshakeHandler {
         // HttpSession session = ((ServletServerHttpRequest) request).getServletRequest().getSession();
         String username = (String) httpSession.getAttribute("username");
         UserDTO userDTO = userService.getByUsername(username);
-        return new UserPrincipal(userDTO.UUID());
+        return new UserPrincipal(String.valueOf(userDTO.id()));
     }
 }

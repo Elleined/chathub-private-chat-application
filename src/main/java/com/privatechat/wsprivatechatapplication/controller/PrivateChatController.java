@@ -23,14 +23,14 @@ public class PrivateChatController {
     private final UserService userService;
 
     @GetMapping("/{recipientId}")
-    public String goToPrivateChat(@PathVariable("recipientId") String recipientId,
+    public String goToPrivateChat(@PathVariable("recipientId") int recipientId,
                                   HttpSession session,
                                   Model model) {
 
         String username = (String) session.getAttribute("username");
         if (username == null) return "redirect:/login";
 
-        UserDTO recipientDTO = userService.getByUUID(recipientId);
+        UserDTO recipientDTO = userService.getById(recipientId);
 
         model.addAttribute("username", username);
         model.addAttribute("recipient", recipientDTO);
@@ -41,8 +41,6 @@ public class PrivateChatController {
     @PostMapping
     public ResponseEntity<?> sendPrivateMessage(@RequestBody Message message) throws InterruptedException {
         String body = message.body();
-        String recipientUUID = message.recipientUUID();
-        if (recipientUUID.isEmpty() || recipientUUID.isBlank()) return ResponseEntity.badRequest().body("Please provide recipient id!!");
         if (body.isEmpty() || body.isBlank()) return ResponseEntity.badRequest().body("Please provide a message body!");
 
         wsService.sendPrivateMessage(message);
