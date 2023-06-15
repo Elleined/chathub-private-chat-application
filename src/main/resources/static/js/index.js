@@ -42,7 +42,31 @@ function onError() {
 }
 
 function generateNotificationBlock(responseMessage) {
-    alert("Message count " + responseMessage.messageCount + " Notification message " + responseMessage.notificationMessage);
     const notificationContainer = $("#notificationContainer");
 
+    const notificationItem = $("<li>")
+        .attr("class", "d-inline-flex position-relative ms-2 dropdown-item")
+        .appendTo(notificationContainer);
+
+    const messageCount = $("<span>")
+        .attr("class", "position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle")
+        .text(responseMessage.messageCount + "+")
+        .appendTo(notificationItem);
+
+    const senderImage = $("<img>").attr({
+        "class": "rounded-4 shadow-4",
+        "src": "/img/" + responseMessage.senderPicture,
+        "style": "width: 50px; height: 50px;"
+        }).appendTo(notificationItem);
+
+    const notificationLink = $("<a>")
+        .attr("href", "#")
+        .appendTo(notificationItem);
+
+    const notificationMessage = $("<p>")
+        .attr("class", "lead mt-2 ms-2 me-2")
+        .text(responseMessage.notificationMessage)
+        .appendTo(notificationLink);
+
+    const br = $("<br>").appendTo(notificationContainer);
 }
