@@ -50,12 +50,6 @@ function connectToUser() {
         if (json.senderId != recipientId) return;
         showMessage(json);
    });
-
-   stompClient.subscribe("/user/chat/private-notification", function(notificationResponse) {
-        const json = JSON.parse(notificationResponse.body);
-
-        alert("Message count " + json.messageCount + " Notification message " + json.message);
-   });
 }
 
 function sendPrivateMessage() {

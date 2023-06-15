@@ -1,6 +1,5 @@
 package com.privatechat.wsprivatechatapplication.service;
 
-import com.privatechat.wsprivatechatapplication.dto.NotificationResponse;
 import com.privatechat.wsprivatechatapplication.dto.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -12,8 +11,7 @@ public class NotificationService {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public void sendPrivateNotification(int recipientId) {
-        var notificationResponse = new NotificationResponse(1, "You have a new message from UNKNOWN user");
-        simpMessagingTemplate.convertAndSendToUser(String.valueOf(recipientId), "/chat/private-notification", notificationResponse);
+    public void sendPrivateNotification(int recipientId, ResponseMessage responseMessage) {
+        simpMessagingTemplate.convertAndSendToUser(String.valueOf(recipientId), "/chat/private-notification", responseMessage);
     }
 }

@@ -4,12 +4,32 @@
    <meta charset="UTF-8">
    <title>Private Chat</title>
    <div th:replace="~{fragments/links :: links-fragment}"></div>
+   <script th:src="@{/js/index.js}"></script>
 </head>
 <body>
    <h1 class="mt-2" align="center"> Start Chatting</h1>
-   <p class="note note-info mb-3 lead text-center">Please be aware that messages that you sent or receive are not saved into any database. All Chat will be deleted after you refresh the page or leave the website.</p>
+   <p class="note note-warning mb-3 lead text-center">Please be aware that messages that you sent or receive are not saved into any database. All Chat will be deleted after you refresh the page or leave the website.</p>
 
    <hr />
+
+   <div class="dropdown">
+      <button
+              class="btn btn-primary dropdown-toggle position-relative"
+              type="button"
+              id="dropdownMenuButton"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false">
+         Inbox
+         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger">
+            99+
+            <span class="visually-hidden">unread messages</span>
+         </span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="notificationContainer">
+
+      </ul>
+   </div>
+
    <span th:if="${users.isEmpty()}">No registered users yet</span>
 
    <th:block th:each="user : ${users}">

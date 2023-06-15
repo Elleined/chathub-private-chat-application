@@ -23,10 +23,11 @@ public class WSService {
         UserDTO sender = userService.getByUsername(message.senderUsername());
         String senderPicture = sender.picture();
         int senderId = sender.id();
-        var responseMessage = new ResponseMessage(senderId, message.senderUsername(), message.body(), senderPicture);
+        var notificationMessage = "You receive a new message from " + sender.username();
+        var responseMessage = new ResponseMessage(senderId, message.senderUsername(), message.body(), senderPicture, notificationMessage, 1);
 
-        notificationService.sendPrivateNotification(message.recipientId());
         simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.recipientId()), "/chat/private-message", responseMessage);
+        notificationService.sendPrivateNotification(message.recipientId(), responseMessage);
         return responseMessage;
     }
 }
