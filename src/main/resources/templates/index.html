@@ -6,13 +6,16 @@
    <div th:replace="~{fragments/links :: links-fragment}"></div>
 </head>
 <body>
-   <h1 class="mt-2" align="center"> Start Chatting </h1>
+   <h1 class="mt-2" align="center"> Start Chatting</h1>
+   <p class="note note-info mb-3 lead text-center">Please be aware that messages that you sent or receive are not saved into any database. All Chat will be deleted after you refresh the page or leave the website.</p>
+
    <hr />
    <span th:if="${users.isEmpty()}">No registered users yet</span>
 
    <th:block th:each="user : ${users}">
       <div class="card">
          <div class="card-body">
+            <img class="rounded-circle shadow-4-strong" th:src="${'/img/' + user.picture}" style="width: 50px; height: 50px;">
             <h5 class="card-title" th:text="${user.username}"></h5>
             <p class="card-text" th:text="${user.description}"></p>
             <a role="button"

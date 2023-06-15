@@ -44,11 +44,8 @@ public class PrivateChatController {
         String body = message.body();
         if (body.isEmpty() || body.isBlank()) return ResponseEntity.badRequest().body("Please provide a message body!");
 
-        wsService.sendPrivateMessage(message);
+        var responseMessage = wsService.sendPrivateMessage(message);
 
-        UserDTO sender = userService.getByUsername(message.senderUsername());
-        String senderPicture = sender.picture();
-        int senderId = sender.id();
-        return ResponseEntity.ok(new ResponseMessage(senderId, message.senderUsername(), message.body(), senderPicture));
+        return ResponseEntity.ok(responseMessage);
     }
 }

@@ -14,15 +14,19 @@ import org.springframework.stereotype.Service;
 public class WSService {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
+    private final NotificationService notificationService;
     private final UserService userService;
 
-    public void sendPrivateMessage(Message message) throws InterruptedException {
+    public ResponseMessage sendPrivateMessage(Message message) throws InterruptedException {
         Thread.sleep(1000);
 
         UserDTO sender = userService.getByUsername(message.senderUsername());
         String senderPicture = sender.picture();
         int senderId = sender.id();
         var responseMessage = new ResponseMessage(senderId, message.senderUsername(), message.body(), senderPicture);
+
+        notificationService.sendPrivateNotification(message.recipientId());
         simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.recipientId()), "/chat/private-message", responseMessage);
+        return responseMessage;
     }
 }

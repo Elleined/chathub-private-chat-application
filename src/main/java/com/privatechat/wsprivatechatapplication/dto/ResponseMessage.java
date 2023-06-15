@@ -5,4 +5,5 @@ public record ResponseMessage(
         String senderUsername,
         String messageContent,
         String senderPicture
-) { }
+) {
+}
