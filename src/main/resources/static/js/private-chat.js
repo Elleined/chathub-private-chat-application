@@ -1,11 +1,6 @@
 'use strict';
 
-var stompClient;
-
-const colors = [
-    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-];
+let stompClient;
 
 $(document).ready(function() {
     $("#sendPrivateBtnSpinner").hide();
@@ -19,7 +14,7 @@ $(document).ready(function() {
 });
 
 function connect() {
-    var socket = new SockJS("/websocket");
+    const socket = new SockJS("/websocket");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
 }
@@ -36,7 +31,7 @@ function onError() {
 
 function connectToUser() {
    stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
-        var json = JSON.parse(responseMessage.body);
+        const json = JSON.parse(responseMessage.body);
         showMessage(json);
    });
 }
@@ -48,6 +43,11 @@ function sendPrivateMessage() {
 
     if (recipientId.trim() === "") {
         alert("Please provide recipient id!!");
+        return;
+    }
+
+    if (body.trim() === "") {
+        alert("Please provide your message!!");
         return;
     }
 

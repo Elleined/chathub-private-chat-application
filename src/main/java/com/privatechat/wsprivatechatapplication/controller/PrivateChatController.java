@@ -31,7 +31,6 @@ public class PrivateChatController {
         if (username == null) return "redirect:/login";
 
         UserDTO recipientDTO = userService.getById(recipientId);
-
         model.addAttribute("username", username);
         model.addAttribute("recipient", recipientDTO);
         return "private-chat";

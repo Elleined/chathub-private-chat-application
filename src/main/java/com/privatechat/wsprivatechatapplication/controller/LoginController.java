@@ -25,7 +25,7 @@ public class LoginController {
                             HttpSession session) {
 
         String username = (String) session.getAttribute("username");
-        if (username != null) return "redirect:/index";
+        if (username != null) return "redirect:/";
 
         return "login";
     }
