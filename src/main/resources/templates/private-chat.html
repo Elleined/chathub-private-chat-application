@@ -8,6 +8,8 @@
    <script th:src="@{/js/private-chat.js}"></script>
 </head>
 <body background="/img/background.jpg">
+   <h1 align="center" th:text="${'Interacting as ' + sender.username + ' with id of ' +  sender.id}"></h1>
+
    <div id="chat-page">
       <div class="chat-container">
          <div class="chat-header">
@@ -36,7 +38,8 @@
       </div>
    </div>
 
-   <input type="hidden" id="sender" name="sender" th:value="${username}" />
+   <input type="hidden" id="senderUsername" name="sender" th:value="${sender.username}" />
+   <input type="hidden" id="senderId" name="senderId" th:value="${sender.id}" />
    <input type="hidden" id="recipientId" name="sender" th:value="${recipient.id}" />
 </body>
 </html>

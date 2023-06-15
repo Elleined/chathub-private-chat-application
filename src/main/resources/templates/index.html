@@ -6,6 +6,8 @@
    <div th:replace="~{fragments/links :: links-fragment}"></div>
 </head>
 <body>
+   <h1 class="mt-2" align="center"> Start Chatting </h1>
+   <hr />
    <span th:if="${users.isEmpty()}">No registered users yet</span>
 
    <th:block th:each="user : ${users}">

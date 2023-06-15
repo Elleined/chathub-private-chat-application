@@ -1,6 +1,7 @@
 'use strict';
 
 let stompClient;
+let subscription;
 
 $(document).ready(function() {
     $("#sendPrivateBtnSpinner").hide();
@@ -10,6 +11,18 @@ $(document).ready(function() {
         event.preventDefault();
         sendPrivateMessage();
         $("#body").val("");
+    });
+
+    $(window).on('beforeunload', function() {
+        subscription.unsubscribe();
+    });
+
+    $(document).on('close', function() {
+        subscription.unsubscribe();
+    });
+
+    $(window).on('unload', function() {
+        subscription.unsubscribe();
     });
 });
 
@@ -30,14 +43,17 @@ function onError() {
 }
 
 function connectToUser() {
-   stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
+   subscription = stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
         const json = JSON.parse(responseMessage.body);
+
+        const recipientId = $("#recipientId").val();
+        if (json.senderId != recipientId) return;
         showMessage(json);
    });
 }
 
 function sendPrivateMessage() {
-    const sender = $("#sender").val();
+    const senderUsername = $("#senderUsername").val();
     const body = $("#body").val();
     const recipientId = $("#recipientId").val();
 
@@ -56,7 +72,7 @@ function sendPrivateMessage() {
         url: "/private-chat",
         contentType: "application/json",
         data: JSON.stringify({
-            sender: sender,
+            senderUsername: senderUsername,
             body: body,
             recipientId: recipientId
         }),
@@ -92,7 +108,7 @@ function showMessage(responseMessage) {
         }).appendTo(messageElement);
 
         const usernameElement = $("<span>")
-            .text(responseMessage.sender)
+            .text(responseMessage.senderUsername)
             .appendTo(messageElement);
 
         const textElement = $("<p>")

@@ -31,7 +31,9 @@ public class PrivateChatController {
         if (username == null) return "redirect:/login";
 
         UserDTO recipientDTO = userService.getById(recipientId);
-        model.addAttribute("username", username);
+        UserDTO sender = userService.getByUsername(username);
+
+        model.addAttribute("sender", sender);
         model.addAttribute("recipient", recipientDTO);
         return "private-chat";
     }
@@ -44,7 +46,9 @@ public class PrivateChatController {
 
         wsService.sendPrivateMessage(message);
 
-        String picture = userService.getByUsername(message.sender()).picture();
-        return ResponseEntity.ok(new ResponseMessage(message.sender(), message.body(), picture));
+        UserDTO sender = userService.getByUsername(message.senderUsername());
+        String senderPicture = sender.picture();
+        int senderId = sender.id();
+        return ResponseEntity.ok(new ResponseMessage(senderId, message.senderUsername(), message.body(), senderPicture));
     }
 }

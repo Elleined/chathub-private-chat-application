@@ -19,8 +19,10 @@ public class WSService {
     public void sendPrivateMessage(Message message) throws InterruptedException {
         Thread.sleep(1000);
 
-        String picture = userService.getByUsername(message.sender()).picture();
-        var responseMessage = new ResponseMessage(message.sender(), message.body(), picture);
+        UserDTO sender = userService.getByUsername(message.senderUsername());
+        String senderPicture = sender.picture();
+        int senderId = sender.id();
+        var responseMessage = new ResponseMessage(senderId, message.senderUsername(), message.body(), senderPicture);
         simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.recipientId()), "/chat/private-message", responseMessage);
     }
 }
