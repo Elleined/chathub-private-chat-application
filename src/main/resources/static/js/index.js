@@ -22,9 +22,18 @@ $(document).ready(function() {
 function connectToPrivateNotification() {
     notificationSubscription = stompClient.subscribe("/user/chat/private-notification", function(responseMessage) {
         const json = JSON.parse(responseMessage.body);
+
+        const notificationItem = $("#notificationItem_" + json.senderId);
+        if (notificationItem.length) {
+            const messageCount = $("#messageCount_" + json.senderId);
+            const newMessageCount = parseInt(messageCount.text()) + 1;
+            messageCount.text(newMessageCount + "+");
+            return;
+        }
         generateNotificationBlock(json);
    });
 }
+
 
 function connect() {
     const socket = new SockJS("/websocket");
@@ -44,12 +53,19 @@ function onError() {
 function generateNotificationBlock(responseMessage) {
     const notificationContainer = $("#notificationContainer");
 
+
     const notificationItem = $("<li>")
-        .attr("class", "d-inline-flex position-relative ms-2 dropdown-item")
+        .attr({
+            "class": "d-inline-flex position-relative ms-2 dropdown-item",
+            "id": "notificationItem_" + responseMessage.senderId
+        })
         .appendTo(notificationContainer);
 
     const messageCount = $("<span>")
-        .attr("class", "position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle")
+        .attr({
+            "class": "position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle",
+            "id": "messageCount_" + responseMessage.senderId
+        })
         .text(responseMessage.messageCount + "+")
         .appendTo(notificationItem);
 
@@ -60,7 +76,7 @@ function generateNotificationBlock(responseMessage) {
         }).appendTo(notificationItem);
 
     const notificationLink = $("<a>")
-        .attr("href", "#")
+        .attr("href", "/private-chat/" + responseMessage.senderId)
         .appendTo(notificationItem);
 
     const notificationMessage = $("<p>")
