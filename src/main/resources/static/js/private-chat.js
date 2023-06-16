@@ -114,4 +114,23 @@ function showMessage(responseMessage) {
         const textElement = $("<p>")
             .text(responseMessage.messageContent)
             .appendTo(messageElement);
+
+            const removeBtn = $("<button>").attr({
+                "type": "button",
+                "class": "btn btn-warning"
+            }).text("Remove for you").appendTo(messageElement);
+
+            removeBtn.on("click", function(event) {
+                event.preventDefault();
+
+                $(this).parent().remove();
+            });
+
+        const senderId = $("#senderId").val();
+        if (responseMessage.senderId == senderId) {
+            const unsendBtn = $("<button>").attr({
+                "type": "button",
+                "class": "btn btn-danger ms-5"
+            }).text("Unsend").appendTo(messageElement);
+        }
 }
