@@ -4,6 +4,7 @@ import com.privatechat.wsprivatechatapplication.dto.UserDTO;
 import com.privatechat.wsprivatechatapplication.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping
 @RequiredArgsConstructor
 public class IndexController {
@@ -29,5 +31,15 @@ public class IndexController {
         List<UserDTO> users = userService.getAllExceptCurrentUser(id);
         model.addAttribute("users", users);
         return "index";
+    }
+
+    @GetMapping
+    public String logout(HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+        session.invalidate();
+
+        log.debug("{} logout successfully!", username);
+        return "redirect:/login";
     }
 }
