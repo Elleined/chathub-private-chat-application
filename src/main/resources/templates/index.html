@@ -7,7 +7,7 @@
    <script th:src="@{/js/index.js}"></script>
 </head>
 <body>
-<h1 class="mt-2" align="center"> Start Chatting</h1>
+<h1 class="mt-2" align="center">ChatHub</h1>
 <p class="note note-warning mb-3 lead text-center">Please be aware that messages that you sent or receive are not saved into any database. All Chat will be deleted after you refresh the page or leave the website.</p>
 
 <hr />
@@ -20,10 +20,7 @@
            data-mdb-toggle="dropdown"
            aria-expanded="false">
       Inbox
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger">
-            99+
-            <span class="visually-hidden">unread messages</span>
-         </span>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger" id="totalNotifCount">0</span>
    </button>
    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="notificationContainer">
       <!-- The content of this are auto generated in js -->

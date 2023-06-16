@@ -22,16 +22,26 @@ $(document).ready(function() {
 function connectToPrivateNotification() {
     notificationSubscription = stompClient.subscribe("/user/chat/private-notification", function(responseMessage) {
         const json = JSON.parse(responseMessage.body);
+        updateTotalNotificationCount();
 
-        const notificationItem = $("#notificationItem_" + json.senderId);
-        if (notificationItem.length) {
-            const messageCount = $("#messageCount_" + json.senderId);
-            const newMessageCount = parseInt(messageCount.text()) + 1;
-            messageCount.text(newMessageCount + "+");
+        if ($("#notificationItem_" + json.senderId).length) {
+            updateNotification(json.senderId);
             return;
         }
         generateNotificationBlock(json);
    });
+}
+
+function updateNotification(senderId) {
+            const messageCount = $("#messageCount_" + senderId);
+            const newMessageCount = parseInt(messageCount.text()) + 1;
+            messageCount.text(newMessageCount + "+");
+}
+
+function updateTotalNotificationCount() {
+            const totalNotifCount = $("#totalNotifCount");
+            const newTotalNotifCount = parseInt(totalNotifCount.text()) + 1;
+            totalNotifCount.text(newTotalNotifCount + "+");
 }
 
 
