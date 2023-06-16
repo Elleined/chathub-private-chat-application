@@ -33,7 +33,7 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
 
         String username = (String) session.getAttribute("username");

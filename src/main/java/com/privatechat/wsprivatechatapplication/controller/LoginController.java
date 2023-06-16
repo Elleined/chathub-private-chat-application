@@ -30,7 +30,7 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/logout")
+    @PostMapping
     public String login(@ModelAttribute UserDTO userDTO,
                         HttpSession session,
                         Model model) {
