@@ -6,6 +6,8 @@ public record ResponseMessage(
         String messageContent,
         String senderPicture,
         String notificationMessage,
-        int messageCount
+        int messageCount,
+        int messageStatusId,
+        String messageStatus
 ) {
 }

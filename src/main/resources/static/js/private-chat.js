@@ -3,6 +3,8 @@
 let stompClient;
 let subscription;
 
+let messageStatusIds = [];
+
 $(document).ready(function() {
     $("#sendPrivateBtnSpinner").hide();
     connect();
@@ -45,6 +47,11 @@ function onError() {
 function connectToUser() {
    subscription = stompClient.subscribe("/user/chat/private-message", function(responseMessage) {
         const json = JSON.parse(responseMessage.body);
+        const messageContainer = $("#messageStatus_" + json.messageStatusId);
+        if (json.messageStatus === "INACTIVE") {
+            messageContainer.remove();
+            return;
+        }
 
         const recipientId = $("#recipientId").val();
         if (json.senderId != recipientId) return;
@@ -87,6 +94,9 @@ function sendPrivateMessage() {
         success: function(responseMessage, response) {
             console.log("Private message sent successfully  " + responseMessage.messageContent);
             showMessage(responseMessage);
+
+            messageStatusIds.push(responseMessage.messageStatusId);
+            console.log(messageStatusIds[0]);
         },
         error: function(xhr, status, error) {
             alert("Error Occurred! " + xhr.responseText);
@@ -94,10 +104,36 @@ function sendPrivateMessage() {
     });
 }
 
+function deleteMessage(statusId) {
+    const senderUsername = $("#senderUsername").val();
+    const body = $("#messageBody_" + statusId).text();
+    const recipientId = $("#recipientId").val();
+
+    $.ajax({
+        type: "DELETE",
+        url: "/messageStatuses/api/" + statusId,
+        contentType: "application/json",
+        data: JSON.stringify({
+            senderUsername: senderUsername,
+            body: body,
+            recipientId: recipientId
+        }),
+        success: function(response) {
+            console.log("Message unsent successfully!");
+        },
+        error: function(xhr, status, error) {
+            alert("Error Occurred! Cannot unsend a message", xhr.responseText);
+        }
+    });
+}
+
 function showMessage(responseMessage) {
         const messageArea = $("#messageArea");
         const messageElement = $("<li>")
-            .attr("class", "chat-message")
+            .attr({
+                "class": "chat-message",
+                "id": "messageStatus_" + responseMessage.messageStatusId
+            })
             .appendTo(messageArea);
 
         const senderImage = $("<img>").attr({
@@ -112,6 +148,7 @@ function showMessage(responseMessage) {
             .appendTo(messageElement);
 
         const textElement = $("<p>")
+            .attr("id", "messageBody_" + responseMessage.messageStatusId)
             .text(responseMessage.messageContent)
             .appendTo(messageElement);
 
@@ -132,5 +169,12 @@ function showMessage(responseMessage) {
                 "type": "button",
                 "class": "btn btn-danger ms-5"
             }).text("Unsend").appendTo(messageElement);
+
+            unsendBtn.on("click", function(event) {
+                event.preventDefault();
+
+                $(this).parent().remove();
+                deleteMessage(responseMessage.messageStatusId);
+            });
         }
 }
