@@ -3,7 +3,7 @@
 let stompClient;
 let subscription;
 
-let messageStatusIds = [];
+const messageStatusIds = [];
 
 $(document).ready(function() {
     $("#sendPrivateBtnSpinner").hide();
@@ -17,16 +17,21 @@ $(document).ready(function() {
 
     $(window).on('beforeunload', function() {
         subscription.unsubscribe();
+        deleteAllMessageStatusById();
     });
 
     $(document).on('close', function() {
         subscription.unsubscribe();
+        deleteAllMessageStatusById();
     });
 
     $(window).on('unload', function() {
         subscription.unsubscribe();
+        deleteAllMessageStatusById();
     });
 });
+
+
 
 function connect() {
     const socket = new SockJS("/websocket");
@@ -94,9 +99,6 @@ function sendPrivateMessage() {
         success: function(responseMessage, response) {
             console.log("Private message sent successfully  " + responseMessage.messageContent);
             showMessage(responseMessage);
-
-            messageStatusIds.push(responseMessage.messageStatusId);
-            console.log(messageStatusIds[0]);
         },
         error: function(xhr, status, error) {
             alert("Error Occurred! " + xhr.responseText);
@@ -127,7 +129,24 @@ function deleteMessage(statusId) {
     });
 }
 
+function deleteAllMessageStatusById() {
+    $.ajax({
+        type: "DELETE",
+        url: "/messageStatuses/api/delete-all-by-id",
+        data: {
+            ids: messageStatusIds.join(","),
+        },
+        success: function(response) {
+            console.log("All Message status sent are now inactive");
+        },
+        error: function(xhr, status, error) {
+            alert("Error Occurred! Cannot unsend list of messages", xhr.responseText);
+        }
+    });
+}
+
 function showMessage(responseMessage) {
+        messageStatusIds.push(responseMessage.messageStatusId);
         const messageArea = $("#messageArea");
         const messageElement = $("<li>")
             .attr({

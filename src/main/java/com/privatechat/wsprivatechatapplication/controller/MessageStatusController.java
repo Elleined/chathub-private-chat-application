@@ -30,10 +30,7 @@ public class MessageStatusController {
     }
 
     @DeleteMapping("/delete-all-by-id")
-    public void deleteAllMessageStatusById(@RequestParam("ids") List<Integer> statusIds,
-                                           @RequestBody List<Message> messages) {
-
-//        messageStatusService.deleteAllById(statusIds);
-//        messages.forEach(message -> wsService.sendPrivateMessage(message, ));
+    public void deleteAllMessageStatusById(@RequestParam("ids") List<Integer> statusIds) {
+        messageStatusService.deleteAllById(statusIds);
     }
 }
