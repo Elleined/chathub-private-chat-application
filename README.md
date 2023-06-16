@@ -1,4 +1,4 @@
-# chathub-private-chat-application
+# chat-hub
 A private message application using Spring WebSocket
 
 # Features
