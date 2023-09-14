@@ -1,4 +1,4 @@
-package com.privatechat.wsprivatechatapplication.model;
+package com.elleined.privatechat.model;
 
 import jakarta.persistence.*;
 import lombok.*;

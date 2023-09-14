@@ -1,8 +1,8 @@
-# chat-hub
-A private message application using Spring WebSocket
+# private-chat
+Private chat application using spring boot
 
 # Features
 - Private Chat
-- Recieve Notification
+- Receive Notification
 - Remove message
 - Unsent message

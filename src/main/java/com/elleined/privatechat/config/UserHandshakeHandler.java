@@ -1,7 +1,7 @@
-package com.privatechat.wsprivatechatapplication.config;
+package com.elleined.privatechat.config;
 
-import com.privatechat.wsprivatechatapplication.dto.UserDTO;
-import com.privatechat.wsprivatechatapplication.service.UserService;
+import com.elleined.privatechat.dto.UserDTO;
+import com.elleined.privatechat.service.UserService;
 import com.sun.security.auth.UserPrincipal;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

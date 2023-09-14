@@ -1,7 +1,7 @@
-package com.privatechat.wsprivatechatapplication.service;
+package com.elleined.privatechat.service;
 
-import com.privatechat.wsprivatechatapplication.model.MessageStatus;
-import com.privatechat.wsprivatechatapplication.repository.MessageStatusRepository;
+import com.elleined.privatechat.model.MessageStatus;
+import com.elleined.privatechat.repository.MessageStatusRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

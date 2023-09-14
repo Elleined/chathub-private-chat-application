@@ -1,4 +1,4 @@
-package com.privatechat.wsprivatechatapplication.dto;
+package com.elleined.privatechat.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

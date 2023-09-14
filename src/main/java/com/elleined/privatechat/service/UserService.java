@@ -1,9 +1,9 @@
-package com.privatechat.wsprivatechatapplication.service;
+package com.elleined.privatechat.service;
 
-import com.privatechat.wsprivatechatapplication.dto.UserDTO;
-import com.privatechat.wsprivatechatapplication.exception.ResourceNotFoundException;
-import com.privatechat.wsprivatechatapplication.model.User;
-import com.privatechat.wsprivatechatapplication.repository.UserRepository;
+import com.elleined.privatechat.dto.UserDTO;
+import com.elleined.privatechat.exception.ResourceNotFoundException;
+import com.elleined.privatechat.model.User;
+import com.elleined.privatechat.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

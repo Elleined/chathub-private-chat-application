@@ -8,11 +8,11 @@
 		<version>3.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.private-chat</groupId>
-	<artifactId>ws-private-chat-application</artifactId>
+	<groupId>com.elleined</groupId>
+	<artifactId>private-chat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ws-private-chat-application</name>
-	<description>Creating Private Message Application</description>
+	<name>private-chat</name>
+	<description>Private chat application using spring boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -28,13 +28,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

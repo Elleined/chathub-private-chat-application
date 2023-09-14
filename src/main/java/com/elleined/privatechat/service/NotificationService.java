@@ -1,6 +1,6 @@
-package com.privatechat.wsprivatechatapplication.service;
+package com.elleined.privatechat.service;
 
-import com.privatechat.wsprivatechatapplication.dto.ResponseMessage;
+import com.elleined.privatechat.dto.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;

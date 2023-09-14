@@ -1,6 +1,6 @@
-package com.privatechat.wsprivatechatapplication.repository;
+package com.elleined.privatechat.repository;
 
-import com.privatechat.wsprivatechatapplication.model.MessageStatus;
+import com.elleined.privatechat.model.MessageStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageStatusRepository extends JpaRepository<MessageStatus, Integer> {

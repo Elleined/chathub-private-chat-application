@@ -1,7 +1,7 @@
-package com.privatechat.wsprivatechatapplication.controller;
+package com.elleined.privatechat.controller;
 
-import com.privatechat.wsprivatechatapplication.dto.UserDTO;
-import com.privatechat.wsprivatechatapplication.service.UserService;
+import com.elleined.privatechat.dto.UserDTO;
+import com.elleined.privatechat.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

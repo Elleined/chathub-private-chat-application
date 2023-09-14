@@ -1,9 +1,9 @@
-package com.privatechat.wsprivatechatapplication.service;
+package com.elleined.privatechat.service;
 
-import com.privatechat.wsprivatechatapplication.dto.Message;
-import com.privatechat.wsprivatechatapplication.dto.ResponseMessage;
-import com.privatechat.wsprivatechatapplication.dto.UserDTO;
-import com.privatechat.wsprivatechatapplication.model.MessageStatus;
+import com.elleined.privatechat.dto.Message;
+import com.elleined.privatechat.dto.ResponseMessage;
+import com.elleined.privatechat.dto.UserDTO;
+import com.elleined.privatechat.model.MessageStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

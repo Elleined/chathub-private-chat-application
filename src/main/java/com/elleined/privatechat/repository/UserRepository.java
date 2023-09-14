@@ -1,6 +1,6 @@
-package com.privatechat.wsprivatechatapplication.repository;
+package com.elleined.privatechat.repository;
 
-import com.privatechat.wsprivatechatapplication.model.User;
+import com.elleined.privatechat.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

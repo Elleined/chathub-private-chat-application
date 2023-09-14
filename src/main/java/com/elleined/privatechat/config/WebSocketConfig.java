@@ -1,7 +1,5 @@
-package com.privatechat.wsprivatechatapplication.config;
+package com.elleined.privatechat.config;
 
-import com.privatechat.wsprivatechatapplication.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

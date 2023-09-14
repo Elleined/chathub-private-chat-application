@@ -1,8 +1,7 @@
-package com.privatechat.wsprivatechatapplication.controller;
+package com.elleined.privatechat.controller;
 
-import com.privatechat.wsprivatechatapplication.dto.APIResponse;
-import com.privatechat.wsprivatechatapplication.exception.ResourceNotFoundException;
-import lombok.RequiredArgsConstructor;
+import com.elleined.privatechat.dto.APIResponse;
+import com.elleined.privatechat.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

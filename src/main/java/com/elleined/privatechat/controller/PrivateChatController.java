@@ -1,12 +1,10 @@
-package com.privatechat.wsprivatechatapplication.controller;
+package com.elleined.privatechat.controller;
 
-import com.privatechat.wsprivatechatapplication.dto.Message;
-import com.privatechat.wsprivatechatapplication.dto.ResponseMessage;
-import com.privatechat.wsprivatechatapplication.dto.UserDTO;
-import com.privatechat.wsprivatechatapplication.model.MessageStatus;
-import com.privatechat.wsprivatechatapplication.service.MessageStatusService;
-import com.privatechat.wsprivatechatapplication.service.UserService;
-import com.privatechat.wsprivatechatapplication.service.WSService;
+import com.elleined.privatechat.dto.Message;
+import com.elleined.privatechat.dto.UserDTO;
+import com.elleined.privatechat.service.MessageStatusService;
+import com.elleined.privatechat.service.UserService;
+import com.elleined.privatechat.service.WSService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.privatechat.wsprivatechatapplication.dto;
+package com.elleined.privatechat.dto;
 
 public record Message(
         String senderUsername,

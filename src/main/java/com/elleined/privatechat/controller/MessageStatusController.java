@@ -1,9 +1,8 @@
-package com.privatechat.wsprivatechatapplication.controller;
+package com.elleined.privatechat.controller;
 
-import com.privatechat.wsprivatechatapplication.dto.Message;
-import com.privatechat.wsprivatechatapplication.model.MessageStatus;
-import com.privatechat.wsprivatechatapplication.service.MessageStatusService;
-import com.privatechat.wsprivatechatapplication.service.WSService;
+import com.elleined.privatechat.dto.Message;
+import com.elleined.privatechat.service.MessageStatusService;
+import com.elleined.privatechat.service.WSService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
